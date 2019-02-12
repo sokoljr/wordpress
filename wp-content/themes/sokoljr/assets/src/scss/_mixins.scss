@@ -1,0 +1,42 @@
+/**
+ *  Clearfix
+ *
+ *  Usage: append to container, that contains floated elements - @include clearfix;
+ */
+@mixin clearfix {
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+        width: 100%;
+        height: 0;
+    }
+}
+
+
+/**
+ *  «Respond to» mixin
+ *
+ *  Mixin to manage responsive breakpoints
+ *  @param {String} $breakpoint - Breakpoint name
+ *  @author Hugo Giraudel
+ *
+ *  @require $breakpoints
+ */
+$breakpoints: (
+    'laptop': 1399px,
+    'tablet': 1199px,
+    'phone':  767px,
+);
+@mixin respond-to( $breakpoint ) {
+    @if map-has-key( $breakpoints, $breakpoint ) {
+        @media ( max-width: map-get( $breakpoints, $breakpoint ) ) {
+            @content;
+        }
+    }
+    
+    @else {
+        @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys( $breakpoints )}.";
+    }
+}
