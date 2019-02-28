@@ -21,7 +21,7 @@ if (current_user_can('administrator')) {
  */
 function map_acf_init() {
 
-	acf_update_setting('google_api_key', 'AIzaSyD1uAodK4CY3sEMUHAmIQCSkSA2zEA1_wc');
+	acf_update_setting('google_api_key', 'xxx');
 }
 
 add_action('acf/init', 'map_acf_init');
