@@ -20,7 +20,7 @@ function rst_load_assets()
 		//jQuery
 		wp_deregister_script('jquery');
 
-		wp_register_script( 'jquery', get_template_directory_uri() . '/assets/dist/js/libs/jquery.min.js', SOKOLJR_THEME_VERSION, true );
+		wp_register_script( 'jquery', get_template_directory_uri() . '/assets/dist/vendor/jquery.min.js', SOKOLJR_THEME_VERSION, true );
 
 		// Styles
 		wp_enqueue_style( 'app', get_template_directory_uri() . '/assets/dist/css/app.min.css', SOKOLJR_THEME_VERSION );
