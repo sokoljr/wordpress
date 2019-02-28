@@ -78,7 +78,7 @@ proxyurl = env.proxyurl;
  *      -- fonts
  *      -- img
  *      -- js
- *          --libs
+ *          --vendor
  *      -- svg
  *      -- scss
  *  -- index.php
@@ -90,7 +90,7 @@ proxyurl = env.proxyurl;
 let path = {
     build: {
         js:         './assets/dist/js/',
-        libs:         './assets/dist/js/libs/',
+        vendor:     './assets/dist/vendor/',
         css:        './assets/dist/css/',
         img:        './assets/dist/img/',
         svg:        './assets/dist/svg/',
@@ -98,7 +98,7 @@ let path = {
     },
     src: {
         js:         [ './assets/src/js/app.js' ],
-        libs:       [ './assets/src/js/libs/*.js' ],
+        vendor:     [ './assets/src/js/vendor/**/*.js', './assets/src/js/vendor/**/*.scss', './assets/src/js/vendor/**/*.css' ],
         scss:       [ './assets/src/scss/*.scss' ],
         img:        [ './assets/src/img/*.*' ],
         svg:        [ './assets/src/svg/*.svg' ],
@@ -106,7 +106,7 @@ let path = {
     },
     watch: {
         js:         [ './assets/src/js/app.js' ],
-        libs:       [ './assets/src/js/libs/*.js' ],
+        vendor:     [ './assets/src/js/vendor/**/*.js', './assets/src/js/vendor/**/*.scss', './assets/src/js/vendor/**/*.css' ],
         img:        [ './assets/src/img/*.*' ],
         scss:       [ './assets/src/scss/**/*.scss'],
         svg:        [ './assets/src/svg/*.svg' ],
@@ -156,10 +156,10 @@ gulp.task('js:build', () => {
 /**
  *  Build JavaScripts Libraries
  */
-gulp.task('libs:build', () => {
+gulp.task('vendor:build', () => {
     return gulp.src([
         './node_modules/jquery/dist/jquery.min.js',
-    ]).pipe(gulp.dest(path.build.libs))
+    ]).pipe(gulp.dest(path.build.vendor))
         .pipe(reload({ stream: true }));
 });
 
@@ -230,7 +230,7 @@ gulp.task('php:build', () => { reload() });
  */
 gulp.task('build', [
     'js:build',
-    'libs:build',
+    'vendor:build',
     'scss:build',
     'image:build',
     'svg:build',
@@ -245,7 +245,7 @@ gulp.task('build', [
 gulp.task('watch', function(){
     watch(path.watch.scss,      () => { gulp.start('scss:build') });
     watch(path.watch.js,        () => { gulp.start('js:build') });
-    watch(path.watch.libs,      () => { gulp.start('libs:build') });
+    watch(path.watch.vendor,    () => { gulp.start('vendor:build') });
     watch(path.watch.img,       () => { gulp.start('image:build') });
     watch(path.watch.svg,       () => { gulp.start('svg:build') });
     watch(path.watch.fonts,     () => { gulp.start('fonts:build') });
@@ -302,10 +302,10 @@ gulp.task('js:prod', function(){
 /**
  *  Production JavaScripts Libraries
  */
-gulp.task('libs:prod', () => {
+gulp.task('vendor:prod', () => {
     return gulp.src([
         './node_modules/jquery/dist/jquery.min.js',
-    ]).pipe(gulp.dest(path.build.libs))
+    ]).pipe(gulp.dest(path.build.vendor))
         .pipe(reload({ stream: true }));
 });
 
@@ -358,4 +358,4 @@ gulp.task('fonts:prod', function(){
 /**
  * Run production builds
  */
-gulp.task('prod', ['js:prod', 'libs:prod', 'scss:prod', 'images:prod', 'svg:prod', 'fonts:prod']);
+gulp.task('prod', ['js:prod', 'vendor:prod', 'scss:prod', 'images:prod', 'svg:prod', 'fonts:prod']);
